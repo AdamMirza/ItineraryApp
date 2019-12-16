@@ -10,6 +10,7 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { WeatherComponent } from './weather/weather.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventComponent } from './event/event.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { EventComponent } from './event/event.component';
     TaskListComponent,
     WeatherComponent,
     CalendarComponent,
-    EventComponent
+    EventComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
