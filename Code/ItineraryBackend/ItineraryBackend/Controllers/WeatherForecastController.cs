@@ -30,20 +30,13 @@ namespace ItineraryBackend.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        public string Get()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return "Backend running";
         }
 
         [HttpPost]
-        public async Task<ActionResult<DarkSkyForecast>> Post(string address)
+        public async Task<ActionResult<WeatherForecast>> Post(string address)
         {
             return await darkSkyWeatherApi.GetWeatherForecast(address);
         }

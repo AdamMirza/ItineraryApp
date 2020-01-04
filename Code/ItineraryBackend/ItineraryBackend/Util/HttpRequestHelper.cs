@@ -1,7 +1,5 @@
 ﻿using ItineraryBackend.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -10,7 +8,7 @@ namespace ItineraryBackend.Util
 {
     public static class HttpRequestHelper
     {
-        public static async Task<GoogleMapsAddress> GetLatLong(string address, string key, IHttpClientFactory clientFactory)
+        public static async Task<RootObject> GetLatLong(string address, string key, IHttpClientFactory clientFactory)
         {
             var request = new HttpRequestMessage(HttpMethod.Get, ItineraryConstants.ApiUrlConstants.GoogleMaps_Geocode + $"?address={address}&key={key}");
 
@@ -18,12 +16,12 @@ namespace ItineraryBackend.Util
 
             var response = await client.SendAsync(request);
 
-            GoogleMapsAddress output;
+            RootObject output;
 
             if (response.IsSuccessStatusCode)
             {
                 using var responseStream = await response.Content.ReadAsStreamAsync();
-                output = await JsonSerializer.DeserializeAsync<GoogleMapsAddress>(responseStream);
+                output = await JsonSerializer.DeserializeAsync<RootObject>(responseStream);
             }
             else
             {
@@ -33,9 +31,9 @@ namespace ItineraryBackend.Util
             return output;
         }
 
-        public static async Task<DarkSkyForecast> GetWeatherForecast(float latitude, float longitude, string key, IHttpClientFactory clientFactory)
+        public static async Task<DarkSkyForecast> GetWeatherForecast(double latitude, double longitude, string key, IHttpClientFactory clientFactory)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, ItineraryConstants.ApiUrlConstants.GoogleMaps_Geocode + $"/{key}/{latitude},{longitude}?exclude=currently,minutely,hourly,alerts,flags&units=si");
+            var request = new HttpRequestMessage(HttpMethod.Get, ItineraryConstants.ApiUrlConstants.DarkSky_Forecast + $"/{key}/{latitude},{longitude}?exclude=currently,minutely,hourly,alerts,flags&units=si");
 
             var client = clientFactory.CreateClient();
             var response = await client.SendAsync(request);

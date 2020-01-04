@@ -16,7 +16,7 @@ namespace ItineraryBackend.Util
         public class ApiUrlConstants
         {
             public const string GoogleMaps_Geocode = "https://maps.googleapis.com/maps/api/geocode/json";
-            public const string DarkSky_Forecast = "https://api.darksky.net/forecast/";
+            public const string DarkSky_Forecast = "https://api.darksky.net/forecast";
         }
     }
 }
