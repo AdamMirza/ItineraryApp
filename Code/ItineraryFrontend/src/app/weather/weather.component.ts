@@ -12,6 +12,8 @@ export class WeatherComponent implements OnInit {
   public weatherSearchForm: FormGroup;
   public weatherForecast: WeatherForecast;
 
+  address: string = 'San Juan, Puerto Rico';
+
   constructor(private formBuilder: FormBuilder, private weatherServiceApi: WeatherApiService) {
     this.weatherForecast = new WeatherForecast();
     this.weatherForecast.forecast = new Array<Forecast>();
@@ -22,13 +24,15 @@ export class WeatherComponent implements OnInit {
       location: ['']
     });
 
-    let weatherCall = this.weatherServiceApi.getWeather('San Juan, Puerto Rico');
+    let weatherCall = this.weatherServiceApi.getWeather(this.address);
 
     weatherCall.subscribe((resp: WeatherForecast) => {
       resp.forecast.forEach(element => {
-        this.weatherForecast.forecast.push(element);
+        this.weatherForecast.forecast.push(this.mapIcon(element));
       });
     });
+
+    console.log(this.weatherForecast.forecast);
 
     this.populateWeather();
   }
@@ -39,6 +43,61 @@ export class WeatherComponent implements OnInit {
 
   populateWeather() {
     
+  }
+
+  mapIcon(element: Forecast) {
+    switch (element.icon) {
+      case 'clear-day': {
+        element.icon = 'sun';
+        break;
+      }
+      case 'clear-night': {
+        element.icon = 'moon';
+        break;
+      }
+      case 'rain': {
+        element.icon = 'cloud-rain';
+        break;
+      }
+      case 'snow': {
+        element.icon = 'snowflake';
+        break;
+      }
+      case 'sleet': {
+        element.icon = 'cloud-rain';
+        break;
+      }
+      case 'wind': {
+        element.icon = 'wind';
+        break;
+      }
+      case 'fog': {
+        element.icon = 'smog';
+        break;
+      }
+      case 'cloudy': {
+        element.icon = 'cloud';
+        break;
+      }
+      case 'partly-cloudy-day': {
+        element.icon = 'cloud-sun';
+        break;
+      }
+      case 'partly-cloudy-night': {
+        element.icon = 'cloud-moon';
+        break;
+      }
+      case 'thunderstorm': {
+        element.icon = 'bolt';
+        break;
+      }
+      default: {
+        element.icon = 'poo';
+        break;
+      }
+    }
+
+    return element;
   }
 
 }

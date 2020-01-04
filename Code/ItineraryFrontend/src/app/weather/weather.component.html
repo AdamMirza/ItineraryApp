@@ -1,5 +1,5 @@
-<h2>Weather Today In</h2>
-<form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPI(weatherSearchForm.value)">
+
+<!--<form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPI(weatherSearchForm.value)">
     <div class="form-group">
         <input
             class="form-control"
@@ -14,4 +14,25 @@
         <button type="submit" class="btn btn-success btn-md">
         Search for the weather</button>
     </div>
-</form> 
+</form>-->
+<div class="container">
+    <div class="row">
+        <h2>Weather Today In</h2>
+    </div>
+    <div class="row">
+        <h5>{{address}}</h5>
+    </div>
+    <div class="row" *ngFor='let element of this.weatherForecast.forecast; let i = index'>
+        <div *ngIf="i === 0">
+            <div class="col-6">
+                <fa-icon [icon]="['fas', element.icon]" [styles]="{'color': '#2D5491'}" size="10x"></fa-icon>
+            </div>
+            <div class="col-6">
+                <p>{{element.maxTemperatureC}}</p>
+            </div>
+        </div>
+        <div *ngIf="i !== 0">
+            <fa-icon [icon]="['fas', element.icon]"></fa-icon>
+        </div>
+    </div>
+</div>
