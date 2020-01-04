@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using ItineraryBackend.Models;
 using ItineraryBackend.Providers;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
