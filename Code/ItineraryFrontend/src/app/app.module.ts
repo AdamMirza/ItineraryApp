@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { WeatherApiService } from "./weather-api.service";
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +19,12 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { CreateTripComponent } from './create-trip/create-trip.component';
 import { TripsComponent } from './trips/trips.component';
+
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent},
+  { path: 'home', component: HomeComponent},
+  { path: 'trips', component: TripsComponent}
+];
 
 @NgModule({
   declarations: [
@@ -38,7 +45,11 @@ import { TripsComponent } from './trips/trips.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    RouterModule.forRoot(
+      appRoutes,
+      {enableTracing: false}
+    )
   ],
   providers: [WeatherApiService],
   bootstrap: [AppComponent]
