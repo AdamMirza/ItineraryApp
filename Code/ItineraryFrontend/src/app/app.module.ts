@@ -16,6 +16,7 @@ import { EventComponent } from './event/event.component';
 import { HomeComponent } from './home/home.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
+import { CreateTripComponent } from './create-trip/create-trip.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
     WeatherComponent,
     CalendarComponent,
     EventComponent,
-    HomeComponent
+    HomeComponent,
+    CreateTripComponent
   ],
   imports: [
     BrowserModule,
