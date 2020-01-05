@@ -1,1 +1,39 @@
-<p>trips works!</p>
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-12">
+            <h2>My Trips</h2>
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12">
+            <a href="#">Upcoming</a> | <a href="#">Past</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card mt-2 mb-2" *ngFor="let trip of this.trips; let i = index">
+                <div class="card-body">
+                    <div class="row trip-items">
+                        <div class="col-2">
+                            {{trip.title}}
+                        </div>
+                        <div class="col-3">
+                            {{trip.description}}
+                        </div>
+                        <div class="col-2">
+                            {{trip.address}}
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-1">
+                        </div>
+                        <div class="col-1">
+                            <fa-icon class="icon" [icon]="['fas', 'edit']" [styles]="{ 'text-align': 'right' }"></fa-icon>
+                            &nbsp;
+                            <fa-icon class="icon" [icon]="['fas', 'trash']" [styles]="{ 'text-align': 'left' }"></fa-icon>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

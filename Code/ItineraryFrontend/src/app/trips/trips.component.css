@@ -1,0 +1,17 @@
+.trip-items {
+    color: #2D5491;
+    font-weight: 600;
+}
+
+.container-fluid {
+    width: 80%;
+}
+
+.icon:hover {
+    cursor: pointer;
+    color: #4a74b5;
+}
+
+.icon {
+    color: #2D5491;
+}
