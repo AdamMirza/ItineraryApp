@@ -11,7 +11,7 @@ namespace ItineraryBackend.Models
         [JsonProperty(PropertyName = "id")]
         public string Id { get; set; }
         public string Title { get; set; }
-        public string Quote { get; set; }
+        public string Description { get; set; }
         public string Address { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

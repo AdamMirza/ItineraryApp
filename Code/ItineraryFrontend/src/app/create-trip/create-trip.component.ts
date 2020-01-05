@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-create-trip',
@@ -7,9 +8,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CreateTripComponent implements OnInit {
 
-  constructor() { }
+  tripForm;
+
+  constructor(private trip: Trip,
+              private formBuilder: FormBuilder) {
+    this.tripForm = this.formBuilder.group({
+      id: '',
+      title: '',
+      description: '',
+      address: '',
+      startDate: new Date(),
+      endDate: new Date(),
+      eventIds: new Array<string>()
+    });
+  }
 
   ngOnInit() {
   }
 
+}
+
+export class Trip {
+  id: string;
+  title: string;
+  description: string;
+  address: string;
+  startDate: Date;
+  endDate: Date;
+  eventIds: Array<string>;
 }
