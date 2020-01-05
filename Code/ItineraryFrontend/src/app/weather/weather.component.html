@@ -17,22 +17,103 @@
 </form>-->
 <div class="container">
     <div class="row">
-        <h2>Weather Today In</h2>
+        <div class="col-12">
+            <h2>Weather Today In</h2>
+        </div>
     </div>
     <div class="row">
-        <h5>{{address}}</h5>
-    </div>
-    <div class="row" *ngFor='let element of this.weatherForecast.forecast; let i = index'>
-        <div *ngIf="i === 0">
-            <div class="col-6">
-                <fa-icon [icon]="['fas', element.icon]" [styles]="{'color': '#2D5491'}" size="10x"></fa-icon>
-            </div>
-            <div class="col-6">
-                <p>{{element.maxTemperatureC}}</p>
-            </div>
-        </div>
-        <div *ngIf="i !== 0">
-            <fa-icon [icon]="['fas', element.icon]"></fa-icon>
+        <div class="col-12">
+            <h5>{{address}}</h5>
         </div>
     </div>
+    <div class="row" *ngFor='let element of this.weatherForecast.forecast | slice:0:1; let i = index'>
+        <div class="col-12">
+            <div *ngIf="i === 0" class="row">
+                <!-- Today's Weather -->
+                <div class="col-sm-6 col-xs-12" style="text-align: center;">
+                    <fa-icon class="main-icon" [icon]="['fas', element.icon]" [styles]="{ 'color': iconColor(element.icon) }"></fa-icon>
+                </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="main-day">{{this.getDay(element.date)}}</span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-9">
+                            <span *ngIf="isCelsius" class="main-temp">{{Math.floor((element.maxTemperatureC+element.minTemperatureC)/2)}}°</span>
+                            <span *ngIf="!isCelsius" class="main-temp">{{element.maxTemperatureF}}°</span>
+                        </div>
+                        <div class="col-sm-3">
+                            <span class="temp-choice">
+                                <span *ngIf="isCelsius" class="active">C°</span>
+                                <span *ngIf="!isCelsius" (click)="makeCelsius()" class="inactive">C°</span></span>
+                            <br>
+                            <span class="temp-choice">
+                                <span *ngIf="!isCelsius" class="active">F°</span>
+                                <span *ngIf="isCelsius" (click)="makeFahrenheit()" class="inactive">F°</span></span>
+                        </div>
+                    </div>
+                    <div class="row mt-3 normal-temps">
+                        <div *ngIf="isCelsius" class="col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-2">High</div>
+                                <div class="col-8"></div>
+                                <div class="col-2" class="main-temp-range">{{element.maxTemperatureC}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">Low</div>
+                                <div class="col-8"></div>
+                                <div class="col-2" class="main-temp-range">{{element.minTemperatureC}}</div>
+                            </div>
+                        </div>
+                        <div *ngIf="!isCelsius" class="col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div class="col-2">High</div>
+                                <div class="col-8"></div>
+                                <div class="col-2" class="main-temp-range">{{element.maxTemperatureC}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">Low</div>
+                                <div class="col-8"></div>
+                                <div class="col-2" class="main-temp-range">{{element.minTemperatureF}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forecasted Weather -->
+    <div class="row mt-2">
+        <div class="col-12">
+            <div *ngFor='let element of this.weatherForecast.forecast | slice:1:4; let j = index' class="row ml-10">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row mt-2 mb-2 normal-temps" style="text-align: center;">
+                                <div class="col-sm-1 col-xs-1"></div>
+                                <div class="col-sm-3 col-xs-3" style="text-align: left;">
+                                    {{this.getDay(element.date)}}
+                                </div>
+                                <div class="col-sm-4 col-xs-4">
+                                    <fa-icon [icon]="['fas', element.icon]" [styles]="{ 'color': iconColor(element.icon) }" size="2x"></fa-icon>
+                                </div>
+                                <div class="col-sm-2 col-xs-2">
+                                    <span *ngIf="isCelsius">{{element.maxTemperatureC}}</span>
+                                    <span *ngIf="!isCelsius">{{element.maxTemperatureF}}</span>
+                                </div>
+                                <div class="col-sm-2 col-xs-4">
+                                    <span *ngIf="isCelsius">{{element.minTemperatureC}}</span>
+                                    <span *ngIf="!isCelsius">{{element.minTemperatureF}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
+            </div>
+        </div>
+    </div>
+
 </div>

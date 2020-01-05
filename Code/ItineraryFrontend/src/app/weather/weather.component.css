@@ -1,4 +1,51 @@
 h5 {
     color: #555555;
     font-style: italic;
+    font-size: 1vw;
+}
+
+h2 {
+    font-size: 2vw;
+}
+
+.main-icon {
+    font-size: 6vw;
+}
+
+.main-temp {
+    color: #2D5491;
+    font-size: 4.5vw;
+    font-weight: 700;
+    line-height: 4vw;
+}
+
+.main-day {
+    color: #2D5491;
+    font-size: 1vw;
+    font-weight: 500;
+}
+
+.temp-choice {
+    color: #2D5491;
+    font-weight: 700;
+    line-height: 30pt;
+    font-size: 25pt;
+    text-align: right;
+}
+
+.temp-choice:hover {
+    cursor: pointer;
+}
+
+.active {
+    color: #2D5491;
+}
+
+.inactive {
+    color: #555555;
+}
+
+.normal-temps {
+    color: #2D5491;
+    font-weight: 600;
 }

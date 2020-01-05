@@ -13,6 +13,9 @@ export class WeatherComponent implements OnInit {
   public weatherForecast: WeatherForecast;
 
   address: string = 'San Juan, Puerto Rico';
+  days: Array<string> = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  isCelsius:boolean = true;
+  Math = Math;
 
   constructor(private formBuilder: FormBuilder, private weatherServiceApi: WeatherApiService) {
     this.weatherForecast = new WeatherForecast();
@@ -32,17 +35,67 @@ export class WeatherComponent implements OnInit {
       });
     });
 
-    console.log(this.weatherForecast.forecast);
 
     this.populateWeather();
   }
 
   sendToAPI(formValues) {
-    //console.log(formValues);
   }
 
   populateWeather() {
     
+  }
+
+  
+  makeFahrenheit() {
+    this.isCelsius = false;
+  }
+
+  makeCelsius() {
+    this.isCelsius = true;
+  }
+
+  getDay(d: Date) {
+    return this.days[new Date(d).getDay()];
+  }
+
+  iconColor(icon: string) {
+    console.log(icon);
+    switch(icon) {
+      case 'sun': {
+        return '#EFD85A';
+      }
+      case 'moon': {
+        return '#b0afae';
+      }
+      case 'snowflake': {
+        return '#54b1f0';
+      }
+      case 'cloud-rain': {
+        return '#42647a';
+      }
+      case 'wind': {
+        return '#b0afae';
+      }
+      case 'smog': {
+        return '#b0afae';
+      }
+      case 'cloud': {
+        return '#b0afae';
+      }
+      case 'cloud-sun': {
+        return '#5784c9';
+      }
+      case 'cloud-moon': {
+        return '#153059';
+      }
+      case 'bolt': {
+        return '#EFD85A';
+      }
+      default: {
+        return '#2D5491';
+      }
+    }
   }
 
   mapIcon(element: Forecast) {
