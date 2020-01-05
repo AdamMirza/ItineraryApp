@@ -1,1 +1,52 @@
 <p>create-trip works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Create a new trip</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <form [formGroup]="tripForm" ngSubmit="onSubmit(tripForm.value)">
+                <div class="row">
+                    <div class="col-12">
+                        <label for="title">Trip Title</label>
+                        <input id="title" type="text" formControlName="title">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="description">Description (keep it short!)</label>
+                        <input id="description" type="text" formControlName="description">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="address">Address</label>
+                        <input id="address" type="text" formControlName="address">
+                    </div>
+                </div>
+                <button class="button" type="submit">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--
+<form [formGroup]="weatherSearchForm" (ngSubmit)="sendToAPI(weatherSearchForm.value)">
+    <div class="form-group">
+        <input
+            class="form-control"
+            type="text"
+            id="weatherLocation"
+            aria-describedby="weatherLocation"
+            placeholder="Please input a Location"
+            formControlName="location"
+        />
+    </div>
+    <div class="text-center"> 
+        <button type="submit" class="btn btn-success btn-md">
+        Search for the weather</button>
+    </div>
+</form>
+-->

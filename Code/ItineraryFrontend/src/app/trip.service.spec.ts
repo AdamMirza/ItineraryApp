@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TripServiceService } from './trip-service.service';
+import { TripService } from './trip.service';
 
-describe('TripServiceService', () => {
+describe('TripService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TripServiceService = TestBed.get(TripServiceService);
+    const service: TripService = TestBed.get(TripService);
     expect(service).toBeTruthy();
   });
 });
