@@ -29,11 +29,11 @@ namespace ItineraryBackend
         {
             services.AddCors(options =>
             {
-                options.AddPolicy(MyAllowSpecificOrigins,
+                /*options.AddPolicy(MyAllowSpecificOrigins,
                     builder =>
                     {
                         builder.WithOrigins("http://localhost:4200");
-                    });
+                    });*/
                 options.AddPolicy(MyAllowAllOrigins,
                     builder =>
                     {
