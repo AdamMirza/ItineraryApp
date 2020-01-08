@@ -6,7 +6,7 @@ import { HttpClient, HttpParams, HttpRequest, HttpHeaders } from '@angular/commo
 })
 export class WeatherApiService {
 
-  weatherUrl = "https://localhost:44322/weatherforecast";
+  weatherUrl = "https://itinerarybackend.azurewebsites.net/weatherforecast";
   httpOptions = { 
     headers: new HttpHeaders({
       'Content-Type': 'application/json; charset=utf-8'
