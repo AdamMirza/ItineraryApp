@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { IWeatherForecast, WeatherApiService, IForecast } from '../weather-api.service';
+import { faTintSlash } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
+import { HttpRequest } from '@angular/common/http';
+import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-weather',
@@ -9,7 +13,6 @@ import { IWeatherForecast, WeatherApiService, IForecast } from '../weather-api.s
 })
 export class WeatherComponent implements OnInit {
 
-  public weatherSearchForm: FormGroup;
   public weatherForecast: WeatherForecast;
 
   address: string = 'San Juan, Puerto Rico';
@@ -17,33 +20,41 @@ export class WeatherComponent implements OnInit {
   isCelsius:boolean = true;
   Math = Math;
 
-  constructor(private formBuilder: FormBuilder, private weatherServiceApi: WeatherApiService) {
+  constructor(private formBuilder: FormBuilder,
+              private weatherServiceApi: WeatherApiService,
+              private storage: StorageMap) {
     this.weatherForecast = new WeatherForecast();
     this.weatherForecast.forecast = new Array<Forecast>();
   }
 
   ngOnInit() {
-    this.weatherSearchForm = this.formBuilder.group({
-      location: ['']
-    });
-
-    let weatherCall = this.weatherServiceApi.getWeather(this.address);
-
-    weatherCall.subscribe((resp: WeatherForecast) => {
-      resp.forecast.forEach(element => {
-        this.weatherForecast.forecast.push(this.mapIcon(element));
-      });
-    });
-
-
     this.populateWeather();
   }
 
-  sendToAPI(formValues) {
-  }
-
   populateWeather() {
-    
+    if (this.weatherForecast.location !== this.address) {
+      let weatherCall: Observable<unknown>;
+      let today = new Date();
+      let date = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
+      console.log(date);
+
+      this.weatherServiceApi.hasWeather(this.address + "-" + date).subscribe(isWeatherInCache => {
+        if (isWeatherInCache) {
+          weatherCall = this.weatherServiceApi.getWeatherFromCache(this.address);
+        } else {
+          weatherCall = this.weatherServiceApi.getWeatherFromServer(this.address);
+          this.storage.set(this.address + "-" + date, weatherCall).subscribe(() => {});
+        }
+  
+        weatherCall.subscribe((resp: WeatherForecast) => {
+          resp.forecast.forEach(element => {
+            this.weatherForecast.forecast.push(this.mapIcon(element));
+          });
+        });
+      });      
+    }
+
+    console.log(this.weatherForecast);
   }
 
   
@@ -60,7 +71,6 @@ export class WeatherComponent implements OnInit {
   }
 
   iconColor(icon: string) {
-    console.log(icon);
     switch(icon) {
       case 'sun': {
         return '#EFD85A';
@@ -157,6 +167,7 @@ export class WeatherComponent implements OnInit {
 
 export class WeatherForecast implements IWeatherForecast {
   forecast: import("../weather-api.service").IForecast[];
+  location: string;
 }
 
 export class Forecast implements IForecast {
