@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="DB\" />
+    <Folder Include="CacheProviders\" />
   </ItemGroup>
 
 

@@ -19,7 +19,6 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { CreateTripComponent } from './create-trip/create-trip.component';
 import { TripsComponent } from './trips/trips.component';
-import { StorageModule } from '@ngx-pwa/local-storage';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -50,8 +49,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: false}
-    ),
-    StorageModule.forRoot({ IDBNoWrap: true })
+    )
   ],
   providers: [WeatherApiService],
   bootstrap: [AppComponent]

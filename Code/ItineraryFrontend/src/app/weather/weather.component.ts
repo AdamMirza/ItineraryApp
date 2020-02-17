@@ -3,8 +3,6 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { IWeatherForecast, WeatherApiService, IForecast } from '../weather-api.service';
 import { faTintSlash } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
-import { HttpRequest } from '@angular/common/http';
-import { StorageMap } from '@ngx-pwa/local-storage';
 
 @Component({
   selector: 'app-weather',
@@ -21,8 +19,7 @@ export class WeatherComponent implements OnInit {
   Math = Math;
 
   constructor(private formBuilder: FormBuilder,
-              private weatherServiceApi: WeatherApiService,
-              private storage: StorageMap) {
+              private weatherServiceApi: WeatherApiService) {
     this.weatherForecast = new WeatherForecast();
     this.weatherForecast.forecast = new Array<Forecast>();
   }
@@ -32,27 +29,13 @@ export class WeatherComponent implements OnInit {
   }
 
   populateWeather() {
-    if (this.weatherForecast.location !== this.address) {
-      let weatherCall: Observable<unknown>;
-      let today = new Date();
-      let date = today.getDate() + "/" + today.getMonth() + "/" + today.getFullYear();
-      console.log(date);
+    let weatherCall = this.weatherServiceApi.getWeather(this.address);
 
-      this.weatherServiceApi.hasWeather(this.address + "-" + date).subscribe(isWeatherInCache => {
-        if (isWeatherInCache) {
-          weatherCall = this.weatherServiceApi.getWeatherFromCache(this.address);
-        } else {
-          weatherCall = this.weatherServiceApi.getWeatherFromServer(this.address);
-          this.storage.set(this.address + "-" + date, weatherCall).subscribe(() => {});
-        }
-  
-        weatherCall.subscribe((resp: WeatherForecast) => {
-          resp.forecast.forEach(element => {
-            this.weatherForecast.forecast.push(this.mapIcon(element));
-          });
-        });
-      });      
-    }
+    weatherCall.subscribe((resp: WeatherForecast) => {
+      resp.forecast.forEach(element => {
+        this.weatherForecast.forecast.push(this.mapIcon(element));
+      });
+    });
 
     console.log(this.weatherForecast);
   }
@@ -167,7 +150,6 @@ export class WeatherComponent implements OnInit {
 
 export class WeatherForecast implements IWeatherForecast {
   forecast: import("../weather-api.service").IForecast[];
-  location: string;
 }
 
 export class Forecast implements IForecast {

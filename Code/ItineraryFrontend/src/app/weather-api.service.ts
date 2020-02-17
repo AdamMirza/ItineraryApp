@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { of, Observable, EMPTY } from 'rxjs';
-import { catchError, shareReplay } from 'rxjs/operators';
-import { StorageMap } from '@ngx-pwa/local-storage';
-
 
 @Injectable({
   providedIn: 'root'
@@ -19,38 +15,12 @@ export class WeatherApiService {
     observe: 'response'
   };
 
-  constructor(private http:HttpClient,
-              private storage: StorageMap) { }
+  constructor(private http:HttpClient) { }
 
   getWeather(address: string) {
-
-  }
-
-  hasWeather(address: string) {
     let url = this.getUrlFromAddress(address);
     
-    return this.storage.has(url);
-  }
-
-  getWeatherFromCache(address: string) {
-    let url = this.getUrlFromAddress(address);
-
-    console.log("Returning stored value!");
-    
-    return this.storage.get(url);
-  }
-
-  getWeatherFromServer(address: string) {
-    let url = this.getUrlFromAddress(address);
-    console.log("Returning server value!");
-    
-    let response = this.http.post<IWeatherForecast>(url, this.httpOptions).pipe(
-      shareReplay(1),
-      catchError(err => {
-        this.storage.delete(url);
-        return EMPTY;
-      })
-    );
+    let response = this.http.post<IWeatherForecast>(url, this.httpOptions);
 
     return response;
   }

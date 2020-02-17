@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using ItineraryBackend.CacheProviders;
 using ItineraryBackend.Models;
 using ItineraryBackend.Providers;
 using Microsoft.AspNetCore.Cors;
@@ -16,18 +17,22 @@ namespace ItineraryBackend.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        /*private static readonly string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
+        };*/
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly DarkSkyWeatherApi darkSkyWeatherApi;
 
-        public WeatherForecastController(IConfiguration config, IHttpClientFactory httpClientFactory, ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(IConfiguration config,
+                                         IHttpClientFactory httpClientFactory,
+                                         ILogger<WeatherForecastController> logger,
+                                         WeatherCache weatherCache,
+                                         LocationCache locationCache)
         {
             _logger = logger;
-            darkSkyWeatherApi = new DarkSkyWeatherApi(config, httpClientFactory);
+            darkSkyWeatherApi = new DarkSkyWeatherApi(config, httpClientFactory, _logger, weatherCache, locationCache);
         }
 
         [HttpGet]
