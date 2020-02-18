@@ -14,17 +14,29 @@ import { TaskListComponent } from './task-list/task-list.component';
 import { WeatherComponent } from './weather/weather.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { EventComponent } from './event/event.component';
-import { HomeComponent } from './home/home.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { fas } from '@fortawesome/free-solid-svg-icons';
 import { CreateTripComponent } from './create-trip/create-trip.component';
 import { TripsComponent } from './trips/trips.component';
+import { OktaAuthModule, OktaCallbackComponent } from '@okta/okta-angular';
+import { environment } from 'src/environments/environment';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'home', component: HomeComponent},
-  { path: 'trips', component: TripsComponent}
+  { path: '', component: HomeComponent },
+  { path: 'dashboard', component: DashboardComponent},
+  { path: 'trips', component: TripsComponent},
+  { path: 'implicit/callback', component: OktaCallbackComponent },
+  { path: 'home', component: HomeComponent }
 ];
+
+const config = {
+  issuer: 'https://dev-666959.okta.com/oauth2/default',
+  redirectUri: environment.baseUrl+'/implicit/callback',
+  clientId: '0oa2ao91pfslRV45u4x6',
+  pkce: true
+}
 
 @NgModule({
   declarations: [
@@ -36,9 +48,10 @@ const appRoutes: Routes = [
     WeatherComponent,
     CalendarComponent,
     EventComponent,
-    HomeComponent,
+    DashboardComponent,
     CreateTripComponent,
-    TripsComponent
+    TripsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +62,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       {enableTracing: false}
-    )
+    ),
+    OktaAuthModule.initAuth(config)
   ],
   providers: [WeatherApiService],
   bootstrap: [AppComponent]

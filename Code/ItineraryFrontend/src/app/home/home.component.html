@@ -1,13 +1,62 @@
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-6 col-md-12 col-sm-12">
-            <app-trip-featured></app-trip-featured>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <app-weather></app-weather>
-        </div>
-        <div class="col-lg-3 col-md-6 col-sm-12">
-            <app-task-list></app-task-list>
+        <div class="col">
+            <div class="container-fluid mt-4">
+                <div class="jumbotron">
+                    <div class="overlay"></div>
+                    <div class="inner">
+                        <div class="container text-light">
+                            <h1 class="font-weight-lighter">Traveling just got easier</h1>
+                            <br>
+                            <button type="button" class="btn-lg btn-light mt-3 font-weight-lighter" routerLink="/login">Build Your Trip Today</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-fluid mt-5">
+                    <div class="row">
+                        <div class="col">
+                            <div class="container-fluid mt-5">
+                                <div class="row text-center">
+                                    <div class="col-md-2 col-sm-2"></div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12">
+                                        <fa-icon [icon]="['fas', 'plane']" size="6x"></fa-icon>
+                                        <br>
+                                        <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi viverra ut ante sit amet bibendum.</p>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12">
+                                        <fa-icon [icon]="['fas', 'suitcase-rolling']" size="6x"></fa-icon>
+                                        <br>
+                                        <p class="mt-4">Vestibulum consequat ex sit amet fermentum tincidunt. Nam tempus, dui eu dignissim dapibus.</p>
+                                    </div>
+                                    <div class="d-none d-sm-block d-md-none col-sm-2"></div>
+                                    <div class="d-none d-sm-block d-md-none col-sm-2"></div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12">
+                                        <fa-icon [icon]="['fas', 'clock']" size="6x"></fa-icon>
+                                        <br>
+                                        <p class="mt-4">Fusce commodo erat id aliquet luctus. Curabitur id consequat nulla. In laoreet blandit bibendum.</p>
+                                    </div>
+                                    <div class="col-md-2 col-sm-4 col-xs-12">
+                                        <fa-icon [icon]="['fas', 'calendar-check']" size="6x"></fa-icon>
+                                        <br>
+                                        <p class="mt-4">Curabitur mollis tortor ac iaculis pellentesque. Suspendisse potenti. Sed varius semper ullamcorper.</p>
+                                    </div>
+                                    <div class="col-md-2 col-sm-2"></div>
+                                </div>
+                            </div>
+                            <div class="container-fluid text-center mt-5 mb-5">
+                                <div class="row">
+                                    <div class="col see-services">
+                                        <div class="overlay"></div>
+                                        <div class="inner">
+                                            <button class="btn-lg btn-dark" routerLink="/services">See what we have to offer</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

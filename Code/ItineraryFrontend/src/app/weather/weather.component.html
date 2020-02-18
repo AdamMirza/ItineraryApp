@@ -40,11 +40,11 @@
                         </div>
                     </div>
                     <div class="row ">
-                        <div class="col-sm-9">
+                        <div class="col-sm-8">
                             <span *ngIf="isCelsius" class="main-temp">{{Math.floor((element.maxTemperatureC+element.minTemperatureC)/2)}}°</span>
                             <span *ngIf="!isCelsius" class="main-temp">{{element.maxTemperatureF}}°</span>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-sm-4">
                             <span class="temp-choice">
                                 <span *ngIf="isCelsius" class="active">C°</span>
                                 <span *ngIf="!isCelsius" (click)="makeCelsius()" class="inactive">C°</span></span>
@@ -57,14 +57,14 @@
                     <div class="row mt-3 normal-temps">
                         <div *ngIf="isCelsius" class="col-sm-12 col-xs-12">
                             <div class="row">
-                                <div class="col-2">High</div>
-                                <div class="col-8"></div>
-                                <div class="col-2" class="main-temp-range">{{element.maxTemperatureC}}</div>
+                                <div class="col-3">High</div>
+                                <div class="col-6"></div>
+                                <div class="col-3" class="main-temp-range">{{element.maxTemperatureC}}</div>
                             </div>
                             <div class="row">
-                                <div class="col-2">Low</div>
-                                <div class="col-8"></div>
-                                <div class="col-2" class="main-temp-range">{{element.minTemperatureC}}</div>
+                                <div class="col-3">Low</div>
+                                <div class="col-6"></div>
+                                <div class="col-3" class="main-temp-range">{{element.minTemperatureC}}</div>
                             </div>
                         </div>
                         <div *ngIf="!isCelsius" class="col-sm-12 col-xs-12">
